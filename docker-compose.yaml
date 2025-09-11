@@ -1,0 +1,32 @@
+services:
+  db:
+    image: postgres:16
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: todo
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  todo:
+    build: .
+    container_name: todo_web
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DJANGO_DB_NAME=todo
+      - DJANGO_DB_USER=root
+      - DJANGO_DB_PASSWORD=123456
+      - DJANGO_DB_HOST=db
+      - DJANGO_DB_PORT=5432
+
+volumes:
+  postgres_data:
