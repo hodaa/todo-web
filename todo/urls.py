@@ -18,12 +18,15 @@ from django.contrib import admin
 from django.urls import path, include
 from todo import views
 from django.http import HttpResponse
+from rest_framework.routers import DefaultRouter
+from .views import TaskViewSet
 
 
 
+
+router = DefaultRouter()
+router.register(r"tasks", TaskViewSet)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('tasks/', views.add_task, name="add_task"),
-    path('', views.home),  
+    path("api/", include(router.urls)),
 ]

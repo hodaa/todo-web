@@ -2,26 +2,24 @@ from django.http import JsonResponse
 import json
 from .models import Task
 from django.shortcuts import render
+from rest_framework import viewsets
+from .serializers import TaskSerializer
+from rest_framework.response import Response
+from rest_framework.decorators import action   # 
 
 tasks = []
 
-def home(request):
-    tasks = Task.objects.all().order_by('-created_at')
-    return render(request, "todo/index.html" ,{"tasks": tasks})
+class TaskViewSet(viewsets.ModelViewSet):
+    queryset = Task.objects.all().order_by("-id")
+    serializer_class = TaskSerializer
 
-def tasks_list(request):
-    return JsonResponse({"tasks": ["task 1", "task 2"]})
-
-
-def add_task(request):
-    if request.method == "GET":
-        tasks = list(Task.objects.values("id", "title"))
-        return JsonResponse({"tasks": tasks})
+    def partial_update(self, request, *args, **kwargs):
+        kwargs['partial'] = True
+        return self.update(request, *args, **kwargs)
     
-    elif request.method == "POST":
-        data = json.loads(request.body)
-        title = data.get("title")
-        if not title:
-            return JsonResponse({"error": "Title is required"}, status=400)
-        task = Task.objects.create(title=title)
-        return JsonResponse({"id": task.id, "title": task.title}, status=201)
+
+    @action(detail=False, methods=['get'], url_path='not-completed-count')
+    def not_completed_count(self, request):
+        count = Task.objects.filter(is_completed=False).count()
+        return Response(count)
+    
