@@ -12,11 +12,11 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   todo:
-    build: ./backend
+    build: .
     container_name: todo_web
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./backend:/app
+      - .:/app
     ports:
       - "8000:8000"
     depends_on:
@@ -27,20 +27,6 @@ services:
       - DJANGO_DB_PASSWORD=123456
       - DJANGO_DB_HOST=db
       - DJANGO_DB_PORT=5432
-
-  frontend:
-    build:
-      context: ./frontend  
-      dockerfile: Dockerfile  
-    container_name: react_frontend
-    ports:
-      - "5173:5173" 
-    volumes:
-      - ./frontend:/app
-    command: ["sh", "-c", "npm ci || npm install && npm run dev"]
-    depends_on:
-      - todo
-    
 
 volumes:
   postgres_data:
