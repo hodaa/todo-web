@@ -67,10 +67,6 @@ Notes:
 - Router is created with `trailing_slash=False`, so URLs do not end with a slash.
 - Tests assume list responses may be paginated (`{ results: [...] }`) or plain lists.
 
-## Frontend Notes
-- Vite dev server is bound to `0.0.0.0` for Docker compatibility.
-- The frontend expects the API at `http://localhost:8000/api` (see `frontend/src/api.jsx`).
-- The footer shows the count of items left via `GET /tasks/not-completed-count`.
 
 ## Common Commands
 ### Docker
@@ -95,13 +91,6 @@ cd backend
 python manage.py test
 ```
 
-## Troubleshooting
-- Frontend “vite: not found”: ensure `frontend/node_modules` exist. Rebuild or run:
-  ```bash
-  docker compose -f ./docker-compose.yaml up -d --build
-  ```
-- CORS errors in browser: configure CORS in Django if accessing API from another origin.
-- API list shape mismatch (no `results`): enable DRF pagination in `settings.py` if the frontend expects paginated results.
 
 ## License
 MIT (for demo purposes).
