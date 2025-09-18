@@ -15,6 +15,14 @@ class TaskViewSet(viewsets.ModelViewSet):
         kwargs['partial'] = True
         return self.update(request, *args, **kwargs)
     
+    def get_is_completed_from_request(self, data):
+        return self.get_is_completed_from_data(data)
+
+    def get_is_completed_from_data(self, data):
+        serializer = IsCompletedSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        return serializer.validated_data['is_completed']
+
     def get_queryset(self):
 
         queryset = Task.objects.all()
@@ -28,17 +36,13 @@ class TaskViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['get'], url_path='count')
     def count(self,request):
-        serializer = IsCompletedSerializer(data = request.query_params)
-        serializer.is_valid(raise_exception = True)
-        is_completed = serializer.validated_data['is_completed']
+        is_completed = self.get_is_completed_from_data(request.query_params)
         count = Task.objects.filter(is_completed=is_completed).count()
         return Response({"count" : count})
 
     @action(detail=False, methods=['post'], url_path='complete-all')
     def complete_all(self, request):
-        serializer = IsCompletedSerializer(data = request.data)
-        serializer.is_valid(raise_exception = True)
-        is_completed = serializer.validated_data['is_completed']
+        is_completed = self.get_is_completed_from_data(request.data)
         updated = Task.objects.all().update(is_completed = is_completed)
     
         return Response({'message':f"{updated} tasks marked as completed : {is_completed} ."})

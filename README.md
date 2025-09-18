@@ -84,7 +84,7 @@ docker compose -f ./docker-compose.yaml down
 ### Backend Tests
 ```bash
 # Inside Docker
-docker compose -f ./docker-compose.yaml exec todo_web python manage.py test
+docker compose -f ./docker-compose.yaml exec todo python manage.py test
 ```
 
 ### Area of improvements:
