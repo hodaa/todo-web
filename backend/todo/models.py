@@ -19,5 +19,9 @@ class Task(models.Model):
         self.is_deleted = True
         self.save()
 
+    @classmethod
+    def complete_all(cls, is_completed):
+        return cls.objects.all().update(is_completed=is_completed)
+
     def __str__(self):
         return self.title

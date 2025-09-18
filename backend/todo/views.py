@@ -4,6 +4,8 @@ from rest_framework.decorators import action   #
 from .models import Task
 from .serializers import TaskSerializer
 from .serializers import IsCompletedSerializer
+from .services import mark_all_tasks_completed
+
 
 
 class TaskViewSet(viewsets.ModelViewSet):
@@ -43,7 +45,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['post'], url_path='complete-all')
     def complete_all(self, request):
         is_completed = self.get_is_completed_from_data(request.data)
-        updated = Task.objects.all().update(is_completed = is_completed)
+        updated = mark_all_tasks_completed(is_completed)
     
         return Response({'message':f"{updated} tasks marked as completed : {is_completed} ."})
 
