@@ -7,11 +7,13 @@ import { BASE_URL } from './api.jsx';
 export default function App() {
 
   const [tasks, setTasks] = useState([]);
+  const [taskTitle, setTaskTitle] = useState('');
   const [notCompletedTasksCount, setNotCompletedTasksCount] = useState(0);
   const [completedTasksCount, setCompletedTasksCount] = useState(0);
   const [next, setNext] = useState(null);
   const [prev, setPrev] = useState(null);
-  
+  const [currentFilter, setCurrentFilter] = useState("all");
+
   const fetchTasks = (url = BASE_URL + "/tasks") => {
     fetch(url)
       .then(res => res.json())
@@ -19,6 +21,7 @@ export default function App() {
         setTasks(data.results);
         setNext(data.next);
         setPrev(data.previous);
+        setCurrentFilter("all");
       })
       .catch(err => {
         console.error("Error fetching tasks:", err);
@@ -72,12 +75,13 @@ export default function App() {
     }
   }
 
-  const addTask = async (e, taskTitle) => {
+  const addTask = async (e) => {
+    const taskTitle = e.target.value;
     if (e.key === 'Enter') {
      e.preventDefault();
      if (!taskTitle.trim()) return;
-
      try {
+     
        const response = await fetch(BASE_URL + '/tasks', {
          method: 'POST',
          headers: {
@@ -91,8 +95,8 @@ export default function App() {
        const data = await response.json();
 
        setTasks((prevTasks) => [...prevTasks, data]);
-       setTaskTitle('');
        fetchNotCompletedCount();
+       setTaskTitle ('')
 
      } catch (err) {
        console.error(err);
@@ -127,18 +131,19 @@ export default function App() {
   
 
   const filterTasks = (is_completed) => {
-      const url = `${BASE_URL}/tasks?is_completed=${is_completed}`;
-      fetch(url)
-        .then(res => res.json())
-        .then(data => {
-          const results = Array.isArray(data) ? data : data.results;
-          setTasks(results || []);
-          setNext((data && data.next) || null);
-          setPrev((data && data.previous) || null);
-        })
-        .catch(err => {
-          console.error("Error fetching tasks:", err);
-        });
+    const url = `${BASE_URL}/tasks?is_completed=${is_completed}`;
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        const results = Array.isArray(data) ? data : data.results;
+        setTasks(results || []);
+        setNext((data && data.next) || null);
+        setPrev((data && data.previous) || null);
+        setCurrentFilter(is_completed ? "completed" : "active");
+      })
+      .catch(err => {
+        console.error("Error fetching tasks:", err);
+      });
   };
 
   
@@ -152,7 +157,7 @@ export default function App() {
   return (
     <div>
       <section className="todoapp">
-        <TaskAdd  addTask={addTask}/>
+        <TaskAdd  addTask={addTask} taskTitle={taskTitle}  setTaskTitle = {setTaskTitle}/>
         {tasks.length > 0 && (
           <todo-app>
             <TaskList
@@ -166,11 +171,12 @@ export default function App() {
         
             />
             <Footer 
-            notCompletedTasksCount={notCompletedTasksCount}
-            completedTasksCount={completedTasksCount}
-            fetchTasks={fetchTasks} 
-            filterTasks= {filterTasks}
-            deleteCompletedTask={deleteCompletedTask} 
+              notCompletedTasksCount={notCompletedTasksCount}
+              completedTasksCount={completedTasksCount}
+              fetchTasks={fetchTasks}
+              filterTasks={filterTasks}
+              deleteCompletedTask={deleteCompletedTask}
+              currentFilter={currentFilter}
             />
 
           </todo-app>

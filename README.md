@@ -86,10 +86,22 @@ docker compose -f ./docker-compose.yaml down
 # Inside Docker
 docker compose -f ./docker-compose.yaml exec todo_web python manage.py test
 
-# Locally
-cd backend
-python manage.py test
-```
+### Area of improvements:
+
+##Frontend Improvements:
+
+Add loading and error states for API calls.
+Use React Router for better navigation (e.g., filter via URL).
+Improve accessibility (ARIA attributes, keyboard navigation).
+Add unit and integration tests for react project.
+Use PropTypes or TypeScript for type safety.
+
+##Backend Improvements:
+
+Add authentication (e.g., JWT, OAuth).
+Implement pagination and filtering for tasks.
+Add validation and error handling for API endpoints.
+Write tests for backend logic.
 
 
 ## License

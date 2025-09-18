@@ -14,9 +14,9 @@ export default function TaskList({
   return (
     
     <main className="main">
-        <input id="toggle-all" className='toggle-all' type="checkbox" onChange = {(e) => completeAllTasks(e.target.checked)}/>
-        <label>Mark all as complete hello</label>
-        <ul className= "todo-list" id = "task-list">
+      <input id="toggle-all" className='toggle-all' type="checkbox" onChange = {(e) => completeAllTasks(e.target.checked)}/>
+      <label htmlFor="toggle-all">Mark all as complete</label>
+      <ul className= "todo-list" id = "task-list">
         {tasks.map(task => (
             <li key={task.id} className={task.is_completed ? "completed" : ""}>
                 <div className="view">

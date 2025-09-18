@@ -1,17 +1,15 @@
-import React, {useState} from 'react';
-import { BASE_URL } from "./api.jsx";
+import React from 'react';
 
-
-export default function TaskAdd({addTask}) {
-     const [taskTitle, setTaskTitle] = useState('');
+export default function TaskAdd({addTask, taskTitle, setTaskTitle}) {
 
 return (
   <header className="header">
       <h1>todos</h1>
       <input className="new-todo" placeholder="What needs to be done?" 
+      aria-label="Add a new task"
       onChange={(e) => setTaskTitle(e.target.value)} 
-      onKeyDown= { addTask(e.target.value)}
-      value={taskTitle}
+      onKeyDown= {(e)=> addTask(e)}
+      value = {taskTitle}
       autoFocus />
   </header>
 );
