@@ -17,6 +17,10 @@ venv/
 .vscode/
 
 # Environment variables
-.env
-.backend/.env
-.frontend/.env
+backend/.env
+frontend/.env
+
+# Node.js
+
+frontend/node_modules/
+frontend/public/node_modules/
