@@ -43,6 +43,31 @@ A simple full‑stack Todo application with a Django REST Framework backend and 
    python manage.py runserver 0.0.0.0:8000
    ```
 
+### Environment variables
+
+Create minimal `.env` files (copy from the examples):
+
+Backend (`backend/.env`)
+
+```
+DJANGO_SECRET_KEY=change-me
+DJANGO_DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
+CORS_ALLOWED_ORIGINS=http://localhost:5173
+DB_ENGINE=django.db.backends.postgresql
+DB_NAME=todo
+DB_USER=root
+DB_PASSWORD=123456
+DB_HOST=db
+DB_PORT=5432
+```
+
+Frontend (`frontend/.env`)
+
+```
+VITE_API_BASE_URL=http://localhost:8000/api
+```
+
 ### Frontend (Vite)
 1. Install deps and run dev server:
    ```bash

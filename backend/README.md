@@ -12,3 +12,6 @@
  
 are of improvements
  what can be added later  (date of created at)
+
+ APi Documention 
+ http://localhost:8000/api/docs/swagger
