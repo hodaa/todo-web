@@ -15,6 +15,7 @@ class TaskQuerySet(models.QuerySet):
     def dead(self):
         return self.filter(is_deleted=True)
 
+
 class TaskManager(models.Manager):
     def get_queryset(self):
         return TaskQuerySet(self.model, using=self._db).alive()
@@ -27,8 +28,8 @@ class Task(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    objects = TaskManager()         
-    all_objects = TaskQuerySet.as_manager()  
+    objects = TaskManager()
+    all_objects = TaskQuerySet.as_manager()
 
     def delete(self, *args, **kwargs):
         self.is_deleted = True

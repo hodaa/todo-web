@@ -28,13 +28,17 @@ DEBUG = os.getenv('DJANGO_DEBUG', 'True').lower() in ['1', 'true', 'yes']
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 if not SECRET_KEY:
     if DEBUG:
-        SECRET_KEY = 'django-insecure-7itubz2^0+@(_ffeh18(5c%0*4np!-c*5=^5lpj$%ckt&x4=i$'
+        SECRET_KEY = (
+            'django-insecure-7itubz2^0+@(_ffeh18(5c%0*4np!-c*5=^5lpj$%ckt&x4=i$'
+        )
     else:
         raise RuntimeError('DJANGO_SECRET_KEY is required in production')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-ALLOWED_HOSTS = [h.strip() for h in os.getenv('ALLOWED_HOSTS', '').split(',') if h.strip()] or []
+ALLOWED_HOSTS = [
+    h.strip() for h in os.getenv('ALLOWED_HOSTS', '').split(',') if h.strip()
+] or []
 
 
 # Application definition
@@ -68,9 +72,12 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'todo.urls'
 
 # CORS_ALLOW_ALL_ORIGINS = True
-# Allow all in dev via env, or specify comma-separated origins. In production, default to none.
+# Allow all in dev via env, or specify comma-separated origins.
+# In production, default to none.
 cors_origins_env = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:5173')
-CORS_ALLOWED_ORIGINS = [o.strip() for o in cors_origins_env.split(',') if o.strip()]
+CORS_ALLOWED_ORIGINS = [
+    o.strip() for o in cors_origins_env.split(',') if o.strip()
+]
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -109,16 +116,28 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'UserAttributeSimilarityValidator'
+        ),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'MinimumLengthValidator'
+        ),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'CommonPasswordValidator'
+        ),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'NumericPasswordValidator'
+        ),
     },
 ]
 
@@ -146,7 +165,9 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-    "DEFAULT_PAGINATION_CLASS": "todo.services.DefaultPageNumberPagination",
+    "DEFAULT_PAGINATION_CLASS": (
+        "todo.services.DefaultPageNumberPagination"
+    ),
     "PAGE_SIZE": 10,
     "DEFAULT_FILTER_BACKENDS": [
         "django_filters.rest_framework.DjangoFilterBackend",
@@ -154,7 +175,9 @@ REST_FRAMEWORK = {
         "rest_framework.filters.OrderingFilter",
     ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
+    'DEFAULT_VERSIONING_CLASS': (
+        'rest_framework.versioning.URLPathVersioning'
+    ),
     'DEFAULT_VERSION': 'v1',
     'ALLOWED_VERSIONS': ['v1'],
 }

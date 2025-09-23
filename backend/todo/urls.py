@@ -20,7 +20,9 @@ from todo import views
 from django.http import HttpResponse
 from rest_framework.routers import DefaultRouter
 from .views import TaskViewSet
-from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
+from drf_spectacular.views import (
+    SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
+)
 from django.http import JsonResponse
 
 
@@ -29,8 +31,13 @@ router.register(r"tasks", TaskViewSet, basename="tasks")
 
 urlpatterns = [
     path("api/<str:version>/", include(router.urls)),
-    path("api/<str:version>/schema", SpectacularAPIView.as_view(), name="schema"),
-    path("api/<str:version>/docs/swagger", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
-    path("api/<str:version>/docs/redoc", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
+    path("api/<str:version>/schema",
+         SpectacularAPIView.as_view(), name="schema"),
+    path("api/<str:version>/docs/swagger",
+         SpectacularSwaggerView.as_view(url_name="schema"),
+         name="swagger-ui"),
+    path("api/<str:version>/docs/redoc",
+         SpectacularRedocView.as_view(url_name="schema"),
+         name="redoc"),
     path("healthz", lambda request: JsonResponse({"status": "ok"})),
 ]

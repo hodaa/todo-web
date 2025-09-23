@@ -50,7 +50,10 @@ class TaskTests(TestCase):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(Task.objects.filter(is_completed=True).count(), Task.objects.count())
+        self.assertEqual(
+            Task.objects.filter(is_completed=True).count(),
+            Task.objects.count()
+        )
 
     def test_delete_all_completed_tasks(self):
         # mark one as completed
@@ -60,4 +63,6 @@ class TaskTests(TestCase):
         # call delete endpoint
         response = self.client.delete(reverse('tasks-delete-completed'))
         self.assertEqual(response.status_code, 204)
-        self.assertFalse(Task.objects.filter(is_completed=True).exists())
+        self.assertFalse(
+            Task.objects.filter(is_completed=True).exists()
+        )
