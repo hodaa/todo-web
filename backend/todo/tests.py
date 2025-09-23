@@ -42,7 +42,7 @@ class TaskTests(TestCase):
         self.assertEqual(response.status_code, 400)
         error = json.loads(response.content)
         self.assertIn('title', error)
-    
+
     def test_all_tasks_are_completed(self):
         response = self.client.post(
             reverse('tasks-complete-all'),

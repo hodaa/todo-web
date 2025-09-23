@@ -29,7 +29,8 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 if not SECRET_KEY:
     if DEBUG:
         SECRET_KEY = (
-            'django-insecure-7itubz2^0+@(_ffeh18(5c%0*4np!-c*5=^5lpj$%ckt&x4=i$'
+            'django-insecure-7itubz2^0+@(_ffeh18(5c%0*4np!-c*5='
+            '^5lpj$%ckt&x4=i$'
         )
     else:
         raise RuntimeError('DJANGO_SECRET_KEY is required in production')

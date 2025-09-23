@@ -29,7 +29,9 @@ class RequestResponseLoggingMiddleware:
         except Exception:
             user_id = None
 
-        headers = {k: v for k, v in request.headers.items()} if hasattr(request, "headers") else {}
+        headers = ({k: v for k, v in request.headers.items()}
+                   if hasattr(request, "headers")
+                   else {})
         headers = _scrub_headers(headers)
 
         logger.info(
@@ -47,14 +49,15 @@ class RequestResponseLoggingMiddleware:
         resp_headers = _scrub_headers(resp_headers)
 
         logger.info(
-            "response method=%s path=%s status=%s content_length=%s headers=%s",
+            "response method=%s path=%s status=%s content_length=%s "
+            "headers=%s",
             request.method,
             request.path,
             getattr(response, "status_code", None),
-            response.get("Content-Length", len(getattr(response, "content", b"")) if hasattr(response, "content") else None),
+            response.get("Content-Length",
+                         len(getattr(response, "content", b""))
+                         if hasattr(response, "content") else None),
             resp_headers,
         )
 
         return response
-
-

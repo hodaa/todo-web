@@ -49,9 +49,9 @@ class TaskViewSet(viewsets.ModelViewSet):
         updated = mark_all_tasks_completed(is_completed)
 
         return Response({
-            'message': f"{updated} tasks marked as completed : {is_completed} ."
+            'message': f"{updated} tasks marked as completed : "
+            f"{is_completed} ."
         })
-
 
     @action(detail=False, methods=['delete'], url_path='completed')
     def delete_completed(self, request, *args, **kwargs):
