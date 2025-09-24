@@ -13,6 +13,8 @@ export default function App() {
   const [next, setNext] = useState(null);
   const [prev, setPrev] = useState(null);
   const [currentFilter, setCurrentFilter] = useState("all");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);  
 
   const fetchTasks = (url = BASE_URL + "/tasks") => {
     fetch(url)
