@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import TaskList from './TaskList.jsx';
+
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import TaskAdd from './TaskAdd.jsx';
-import Footer from './Footer';
 import { BASE_URL } from './api.jsx';
+
+const TaskList = React.lazy(() => import('./TaskList.jsx'));
+const Footer = React.lazy(() => import('./Footer'));
 
 export default function App() {
 
@@ -159,28 +161,28 @@ export default function App() {
   return (
     <div>
       <section className="todoapp">
-        <TaskAdd  addTask={addTask} taskTitle={taskTitle}  setTaskTitle = {setTaskTitle}/>
+        <TaskAdd addTask={addTask} taskTitle={taskTitle} setTaskTitle={setTaskTitle} />
         {tasks.length > 0 && (
           <todo-app>
-            <TaskList
-              tasks={tasks}
-              completeAllTasks ={completeAllTasks}
-              completeTask = {completeTask}
-              fetchTasks={fetchTasks}
-              deleteTask = {deleteTask}
-              next={next}
-              prev={prev}
-        
-            />
-            <Footer 
-              notCompletedTasksCount={notCompletedTasksCount}
-              completedTasksCount={completedTasksCount}
-              fetchTasks={fetchTasks}
-              filterTasks={filterTasks}
-              deleteCompletedTask={deleteCompletedTask}
-              currentFilter={currentFilter}
-            />
-
+            <Suspense fallback={<div>Loading tasks...</div>}>
+              <TaskList
+                tasks={tasks}
+                completeAllTasks={completeAllTasks}
+                completeTask={completeTask}
+                fetchTasks={fetchTasks}
+                deleteTask={deleteTask}
+                next={next}
+                prev={prev}
+              />
+              <Footer
+                notCompletedTasksCount={notCompletedTasksCount}
+                completedTasksCount={completedTasksCount}
+                fetchTasks={fetchTasks}
+                filterTasks={filterTasks}
+                deleteCompletedTask={deleteCompletedTask}
+                currentFilter={currentFilter}
+              />
+            </Suspense>
           </todo-app>
         )}
       </section>

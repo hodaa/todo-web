@@ -7,6 +7,7 @@ from .serializers import TaskSerializer
 from .serializers import IsCompletedSerializer
 from .services import mark_all_tasks_completed
 from django_filters.rest_framework import DjangoFilterBackend
+from celery import shared_task
 
 
 class TaskViewSet(viewsets.ModelViewSet):
@@ -43,6 +44,7 @@ class TaskViewSet(viewsets.ModelViewSet):
         count = Task.objects.filter(is_completed=is_completed).count()
         return Response({"count": count})
 
+    @shared_task
     @action(detail=False, methods=['post'], url_path='complete-all')
     def complete_all(self, request, *args, **kwargs):
         is_completed = self.get_is_completed_from_data(request.data)

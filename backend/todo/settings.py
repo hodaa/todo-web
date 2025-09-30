@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -56,6 +57,8 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders',
     'drf_spectacular',
+    'django_celery_beat',
+    
 ]
 
 MIDDLEWARE = [
@@ -193,6 +196,13 @@ SPECTACULAR_SETTINGS = {
 
 APPEND_SLASH = False
 
+CELERY_BEAT_SCHEDULE = {
+    "reset-daily-tasks": {
+        "task": "todo.tasks.complete_all",
+        "schedule": crontab(minute='*'),
+    }
+}
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'amqp://guest:guest@rabbitmq:5672//')
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

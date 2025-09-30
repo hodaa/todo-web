@@ -7,3 +7,6 @@ drf-spectacular
 python-json-logger
 pycodestyle
 djangorestframework-simplejwt
+celery
+redis
+django-celery-beat
