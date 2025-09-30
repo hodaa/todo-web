@@ -10,3 +10,4 @@ djangorestframework-simplejwt
 celery
 redis
 django-celery-beat
+gunicorn
