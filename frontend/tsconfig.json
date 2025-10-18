@@ -1,8 +1,7 @@
 {
-    "include": ["src", "vite.config.*", "env.d.ts"],
+  "include": ["src", "vite.config.*", "env.d.ts"],
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
-  
     // File Layout
     // "rootDir": "./src",
     // "outDir": "./dist",
@@ -11,9 +10,7 @@
     "module": "esnext",
     "target": "esnext",
     "moduleResolution": "bundler",
-    "types": [
-      "vite/client"
-    ],
+    "types": ["vite/client"],
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
@@ -43,9 +40,7 @@
     "useUnknownInCatchVariables": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"]
     }
   }
 }

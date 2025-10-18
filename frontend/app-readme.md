@@ -2,7 +2,6 @@
 
 > Official description of the framework (from its website)
 
-
 ## Resources
 
 - [Website]()
@@ -22,13 +21,11 @@
 - [Twitter](http://twitter.com/__)
 - [Google+]()
 
-*Let us [know](https://github.com/tastejs/todomvc/issues) if you discover anything worth sharing.*
-
+_Let us [know](https://github.com/tastejs/todomvc/issues) if you discover anything worth sharing._
 
 ## Implementation
 
 How was the app created? Anything worth sharing about the process of creating the app? Any spec violations?
-
 
 ## Credit
 

@@ -3,8 +3,8 @@ import type { Task } from '../types/task';
 type Props = {
   tasks: Task[];
   completeAllTasks: (isCompleted: boolean) => Promise<void>;
-  completeTask: (taskId: number, isCompleted: boolean) =>  Promise<void>;
-  fetchTasks: (url?: string) =>  Promise<void>;
+  completeTask: (taskId: number, isCompleted: boolean) => Promise<void>;
+  fetchTasks: (url?: string) => Promise<void>;
   deleteTask: (taskId: number) => Promise<void>;
   next: string | null;
   prev: string | null;
@@ -13,19 +13,17 @@ type Props = {
 export default function TaskList({
   tasks,
   completeAllTasks,
-  completeTask ,
+  completeTask,
   fetchTasks,
-  deleteTask ,
+  deleteTask,
   next,
-  prev
+  prev,
 }: Props) {
-  
   return (
-    
     <main className="main">
       <input
         id="toggle-all"
-        className='toggle-all'
+        className="toggle-all"
         type="checkbox"
         aria-label="Mark all tasks as complete"
         onChange={(e) => completeAllTasks(e.currentTarget.checked)}
@@ -33,12 +31,16 @@ export default function TaskList({
       <label htmlFor="toggle-all">Mark all as complete</label>
       <ul className="todo-list" id="task-list" role="list">
         {tasks.map((task: Task) => (
-          <li key={task.id} className={task.is_completed ? "completed" : ""} role="listitem">
+          <li key={task.id} className={task.is_completed ? 'completed' : ''} role="listitem">
             <div className="view">
               <input
                 className="toggle"
                 type="checkbox"
-                aria-label={task.is_completed ? `Mark ${task.title} as incomplete` : `Mark ${task.title} as complete`}
+                aria-label={
+                  task.is_completed
+                    ? `Mark ${task.title} as incomplete`
+                    : `Mark ${task.title} as complete`
+                }
                 onChange={(e) => completeTask(task.id, e.currentTarget.checked)}
                 checked={task.is_completed}
               />
@@ -53,10 +55,17 @@ export default function TaskList({
         ))}
       </ul>
       <div className="pagination">
-        {prev && <button onClick={() => fetchTasks(prev)} aria-label="Previous page">Previous</button>}
-        {next && <button onClick={() => fetchTasks(next)} aria-label="Next page">Next</button>}
+        {prev && (
+          <button onClick={() => fetchTasks(prev)} aria-label="Previous page">
+            Previous
+          </button>
+        )}
+        {next && (
+          <button onClick={() => fetchTasks(next)} aria-label="Next page">
+            Next
+          </button>
+        )}
       </div>
     </main>
   );
-
 }

@@ -7,7 +7,6 @@ interface TaskAddProps {
 }
 
 export default function TaskAdd({ addTask, taskTitle, setTaskTitle }: TaskAddProps) {
-
   return (
     <header className="header">
       <h1 id="todos-heading">todos</h1>
