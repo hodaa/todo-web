@@ -1,6 +1,7 @@
   import React, { useState, useEffect, Suspense, lazy } from 'react';
-  import { TaskAdd } from './components';
+
   import { BASE_URL } from './api';
+  import { TaskAdd } from './components';
   import type { Task } from './types';
 
   const TaskList = lazy(() => import('./components').then(m => ({ default: m.TaskList })));

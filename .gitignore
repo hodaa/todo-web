@@ -24,3 +24,9 @@ frontend/.env
 
 frontend/node_modules/
 frontend/public/node_modules/
+
+# Frontend lint/format configs
+frontend/.eslintignore
+frontend/.eslintrc.cjs
+frontend/.prettierignore
+frontend/.prettierrc
