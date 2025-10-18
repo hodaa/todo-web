@@ -1,12 +1,20 @@
+type FooterProps = {
+  notCompletedTasksCount: number;
+  completedTasksCount: number;
+  fetchTasks: () => void;
+  filterTasks: (completed: boolean) => void;
+  deleteCompletedTask: () => void;
+  currentFilter: "all" | "active" | "completed";
+};
 
 export default function Footer({
     notCompletedTasksCount,
     completedTasksCount,
-    fetchTasks,
+    fetchTasks,   
     filterTasks,
     deleteCompletedTask,
-    currentFilter
-}) {
+    currentFilter       
+}: FooterProps) {
     return (
         <footer className="footer" aria-label="Footer">
             <span className="todo-count" aria-live="polite">
@@ -16,7 +24,7 @@ export default function Footer({
                 <li>
                     <a
                         className={currentFilter === "all" ? "selected" : ""}
-                        onClick={() => fetchTasks()}
+                        onClick={(e) => {e.preventDefault(); fetchTasks()}}
                         href="#/"
                         aria-current={currentFilter === "all" ? "page" : undefined}
                     >
@@ -27,7 +35,7 @@ export default function Footer({
                     <a
                         className={currentFilter === "active" ? "selected" : ""}
                         href="#"
-                        onClick={() => filterTasks(false)}
+                        onClick={(e) => {e.preventDefault(); filterTasks(false)}}
                         aria-current={currentFilter === "active" ? "page" : undefined}
                     >
                         Active
@@ -37,7 +45,7 @@ export default function Footer({
                     <a
                         className={currentFilter === "completed" ? "selected" : ""}
                         href="#"
-                        onClick={() => filterTasks(true)}
+                        onClick={(e) => {e.preventDefault(); filterTasks(true)}}
                         aria-current={currentFilter === "completed" ? "page" : undefined}
                     >
                         Completed
@@ -45,7 +53,7 @@ export default function Footer({
                 </li>
             </ul>
             {completedTasksCount > 0 && (
-                <button className="clear-completed" onClick={() => deleteCompletedTask()} aria-label="Clear completed tasks">
+                <button className="clear-completed" onClick={(e) => {e.preventDefault(); deleteCompletedTask()}} aria-label="Clear completed tasks">
                     Clear completed
                 </button>
             )}
