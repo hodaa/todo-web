@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface TaskAddProps {
   addTask: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   taskTitle: string;

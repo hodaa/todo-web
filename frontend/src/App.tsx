@@ -1,8 +1,8 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 
-import { BASE_URL } from './api';
-import { TaskAdd } from './components';
-import type { Task } from './types';
+import { BASE_URL } from '@/api';
+import { TaskAdd } from '@/components';
+import type { Task } from '@/types';
 
 const TaskList = lazy(() => import('./components').then((m) => ({ default: m.TaskList })));
 const Footer = lazy(() => import('./components').then((m) => ({ default: m.Footer })));
