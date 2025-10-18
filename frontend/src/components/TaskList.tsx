@@ -1,6 +1,4 @@
-import React from 'react';
-
-import type { Task } from './App';
+import type { Task } from '../types/task';
 
 type Props = {
   tasks: Task[];
@@ -51,7 +49,6 @@ export default function TaskList({
                 onClick={() => deleteTask(task.id)}
               ></button>
             </div>
-            <input className="edit" aria-label={`Edit ${task.title}`} />
           </li>
         ))}
       </ul>
